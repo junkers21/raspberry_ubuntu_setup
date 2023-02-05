@@ -54,8 +54,7 @@ if [ "$d" -lt 100 ] || [ "$d" -gt 255 ]; then
 fi
 
 # Configurar la dirección IP en la interfaz
-sudo netplan apply --debug <<EOF
-network:
+echo "network:
   version: 2
   renderer: networkd
   ethernets:
@@ -64,5 +63,6 @@ network:
       addresses: [$ip/$mask]
       gateway4: $gateway
       nameservers:
-        addresses: [$dns1, $dns2]
-EOF
+        addresses: [$dns1, $dns2]" > /etc/netplan/01-netcfg.yaml
+
+sudo netplan apply --debug
