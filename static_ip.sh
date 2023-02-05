@@ -64,5 +64,5 @@ echo "network:
       gateway4: $gateway
       nameservers:
         addresses: [$dns1, $dns2]" > /etc/netplan/01-netcfg.yaml
-
+sudo rm -f /etc/netplan/50-cloud-init.yaml
 sudo netplan apply --debug
