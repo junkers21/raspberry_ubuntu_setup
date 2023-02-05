@@ -26,31 +26,30 @@ current_ip=$(ip addr show $interface | awk '/inet / {print $2}' | cut -d/ -f1)
 if [ -n "$current_ip" ]; then
   # Comprobar si la dirección IP actual está disponible
   if ping -c1 -W1 $current_ip > /dev/null 2>&1; then
-    # Usar la dirección IP actual
-    ip=$current_ip
-  else
-    # La dirección IP actual no está disponible
-    # Incrementar la dirección IP inicial
-    ip_array=(${ip//./ })
-    ip_array[3]=$((ip_array[3]+1))
-    ip="${ip_array[0]}.${ip_array[1]}.${ip_array[2]}.${ip_array[3]}"
-    
-    # Comprobar si la dirección IP está disponible
-    while ! ping -c1 -W1 $ip > /dev/null 2>&1; do
-      # Incrementar la dirección IP
-      ip_array=(${ip//./ })
-      ip_array[3]=$((ip_array[3]+1))
-      ip="${ip_array[0]}.${ip_array[1]}.${ip_array[2]}.${ip_array[3]}"
-    done
+    # Comprobar si la dirección IP actual está en el rango 100-255
+    IFS=. read -r a b c d <<< "$current_ip"
+    if [ "$d" -ge 100 ] && [ "$d" -le 255 ]; then
+      # Usar la dirección IP actual
+      ip=$current_ip
+    fi
   fi
-else
-  # La dirección IP actual no es válida
-  # Comprobar si la dirección IP está disponible
-  while ! ping -c1 -W1 $ip > /dev/null 2>&1; do
+fi
+
+# Si la dirección IP actual no es válida o no está en el rango 100-255
+if [ "$d" -lt 100 ] || [ "$d" -gt 255 ]; then
+  # Incrementar la dirección IP inicial
+  ip_array=(${ip//./ })
+  ip_array[3]=$((ip_array[3]+1))
+  ip="${ip_array[0]}.${ip_array[1]}.${ip_array[2]}.${ip_array[3]}"
+
+  # Comprobar si la dirección IP está en el rango 100-255
+  IFS=. read -r a b c d <<< "$ip"
+  while [ "$d" -lt 100 ] || [ "$d" -gt 255 ]; do
     # Incrementar la dirección IP
     ip_array=(${ip//./ })
     ip_array[3]=$((ip_array[3]+1))
     ip="${ip_array[0]}.${ip_array[1]}.${ip_array[2]}.${ip_array[3]}"
+    IFS=. read -r a b c d <<< "$ip"
   done
 fi
 
