@@ -11,5 +11,8 @@ else
 
   # Agregar el usuario actual al grupo de Docker
   sudo usermod -aG docker $USER
+  newgrp docker
+
+  sudo apt install docker-compose -y
   echo "Docker installed"
 fi
