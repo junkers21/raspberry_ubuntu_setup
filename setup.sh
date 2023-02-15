@@ -14,3 +14,6 @@ wget -O - https://raw.githubusercontent.com/junkers21/raspberry_ubuntu_setup/mai
 
 # Setup static IP on start
 wget -O - https://raw.githubusercontent.com/junkers21/raspberry_ubuntu_setup/main/setup_static_ip.sh | bash
+
+# Setup usb update
+wget -O - https://raw.githubusercontent.com/junkers21/raspberry_ubuntu_setup/main/setup_usb_update.sh | bash
