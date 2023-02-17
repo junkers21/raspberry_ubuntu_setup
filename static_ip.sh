@@ -18,6 +18,11 @@ dns2="8.8.4.4"
 
 # Interfaz de red
 interface=$(ip -o -4 route show to default | awk '{print $5}')
+# Verificar si la interfaz es inalámbrica
+if [[ $interface == "w"* ]]; then
+  echo "La interfaz es inalámbrica, por lo que no se configurará la dirección IP estática."
+  exit
+fi
 
 # Obtener la dirección IP actual
 current_ip=$(ip addr show $interface | awk '/inet / {print $2}' | cut -d/ -f1)
