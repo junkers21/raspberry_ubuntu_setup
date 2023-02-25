@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-curl -LJO https://raw.githubusercontent.com/junkers21/raspberry_ubuntu_setup/main/static_ip.sh
+curl -LJO https://raw.githubusercontent.com/junkers21/raspberry_ubuntu_setup/main/static_ip/static_ip.sh
 sudo chmod +x static_ip.sh
 
 if test -f "/usr/local/bin/static_ip"; then
