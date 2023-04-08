@@ -13,8 +13,9 @@ wget -O - https://raw.githubusercontent.com/junkers21/raspberry_ubuntu_setup/mai
 # Install docker
 wget -O - https://raw.githubusercontent.com/junkers21/raspberry_ubuntu_setup/main/docker/docker_install.sh | bash
 
-# Setup static IP on start
-wget -O - https://raw.githubusercontent.com/junkers21/raspberry_ubuntu_setup/main/static_ip/setup_static_ip.sh | bash
+# Setup static IP on start 
+# So bugy
+# wget -O - https://raw.githubusercontent.com/junkers21/raspberry_ubuntu_setup/main/static_ip/setup_static_ip.sh | bash
 
 # Setup usb update
 wget -O - https://raw.githubusercontent.com/junkers21/raspberry_ubuntu_setup/main/update_usb/setup_usb_update.sh | bash
